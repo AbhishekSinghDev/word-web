@@ -4,6 +4,7 @@ import Editor from "../pages/Editor";
 import Signup from "../components/Signup";
 import Signin from "../components/Signin";
 import Profile from "../components/Profile";
+import Blog from "../pages/Blog";
 
 const Routers = () => {
   return (
@@ -13,6 +14,7 @@ const Routers = () => {
       <Route path="/signin" element={<Signin />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/blog/:blogid" element={<Blog />} />
     </Routes>
   );
 };

@@ -48,8 +48,55 @@ const publishBlog = async (req, res) => {
     });
   }
 };
-const readBlog = async (req, res) => {};
+const getAllBlogs = async (req, res) => {
+  try {
+    const response = await Blog.find().populate("author");
+    if (response) {
+      res.status(200).json({
+        success: true,
+        message: "All post fetched successfully",
+        blogs: response,
+      });
+    } else {
+      res.status(404).json({
+        success: true,
+        message: "No blog found",
+      });
+    }
+  } catch (err) {
+    console.log("Error while fetching all blogs");
+    console.log(err);
+  }
+};
+const getSingleBlog = async (req, res) => {
+  const blog_id = req.params.blog_id;
+  if (!blog_id) {
+    return res.status(400).json({
+      success: false,
+      message: "Provide blog id",
+    });
+  }
+
+  try {
+    const response = await Blog.findById(blog_id).populate("author");
+    if (response) {
+      return res.status(200).json({
+        success: true,
+        message: "Blog fetched successfully",
+        blog: response,
+      });
+    } else {
+      return res.status(404).json({
+        success: false,
+        message: "No blog found",
+      });
+    }
+  } catch (err) {
+    console.log("Error while fetching single blog");
+    console.log(err);
+  }
+};
 const updateBlog = async (req, res) => {};
 const deleteBlog = async (req, res) => {};
 
-export { publishBlog, readBlog, updateBlog, deleteBlog };
+export { publishBlog, getAllBlogs, getSingleBlog, updateBlog, deleteBlog };

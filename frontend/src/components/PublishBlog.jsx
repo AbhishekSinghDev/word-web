@@ -36,7 +36,7 @@ const PublishBlog = () => {
     const token = user;
 
     try {
-      const { data } = await axios.post("/api/v1/publish-blog/new", body, {
+      const { data } = await axios.post("/api/v1/blog/new", body, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
