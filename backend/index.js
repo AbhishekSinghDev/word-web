@@ -4,6 +4,8 @@ import cors from "cors";
 import mongoose from "mongoose";
 
 import authHandler from "./route/auth.js";
+import blogHandler from "./route/blog.js";
+import userHandler from "./route/user.js";
 
 const PORT = process.env.PORT;
 const app = express();
@@ -15,7 +17,9 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-app.use("/api/v1/auth/", authHandler);
+app.use("/api/v1/auth", authHandler);
+app.use("/api/v1/publish-blog", blogHandler);
+app.use("/api/v1/user", userHandler);
 
 const connectDB = async () => {
   try {

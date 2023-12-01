@@ -4,8 +4,9 @@ import google from "../../public/assets/icon/google.svg";
 import showEye from "../../public/assets/icon/show-eye.svg";
 import hideEye from "../../public/assets/icon/hide-eye.svg";
 
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import { UserContext } from "../context/UserContextProvider";
 
 import { Toaster, toast } from "react-hot-toast";
 import axios from "axios";
@@ -14,6 +15,8 @@ const Signin = () => {
   const [emailInput, setEmailInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
   const [showPassword, setShowPassword] = useState("password");
+  const navigate = useNavigate();
+  const { user, setUser } = useContext(UserContext);
 
   const setPasswordVisibility = () => {
     if (showPassword === "password") {
@@ -38,9 +41,10 @@ const Signin = () => {
         },
         config
       );
-
-      localStorage.setItem("userinfo", JSON.stringify(data.user));
+      localStorage.setItem("access_token", JSON.stringify(data.token));
       toast.success(`${data.message}`, { duration: 3000 });
+      setUser(data.token);
+      navigate("/");
     } catch (err) {
       if (err.response.data.success == false) {
         toast.error(`${err.response.data.message}`, { duration: 3000 });
@@ -59,7 +63,7 @@ const Signin = () => {
           <img src={email} alt="email_icon" className="h-6 w-6" />
           <input
             type="email"
-            placeholder="Enter your email"
+            placeholder="Email"
             className="w-full text-lg outline-none bg-transparent placeholder:text-gray-400"
             value={emailInput}
             onChange={(e) => setEmailInput(e.target.value)}
@@ -69,7 +73,7 @@ const Signin = () => {
           <img src={password} alt="password_icon" className="h-6 w-6" />
           <input
             type={showPassword}
-            placeholder="Enter your password"
+            placeholder="Password"
             className="w-full text-lg outline-none bg-transparent placeholder:text-gray-400"
             value={passwordInput}
             onChange={(e) => setPasswordInput(e.target.value)}

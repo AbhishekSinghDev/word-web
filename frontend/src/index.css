@@ -48,7 +48,7 @@
   }
 
   .btn-light {
-    @apply btn-dark bg-gray-300 text-black;
+    @apply btn-dark bg-gray-200 text-black;
   }
 
   .input-box {
@@ -105,7 +105,7 @@
   }
 
   .tag {
-    @apply p-3 bg-grey rounded-full px-6 capitalize;
+    @apply p-3 bg-gray-100 rounded-full px-6 capitalize;
   }
 
   .blog-title {
@@ -118,6 +118,37 @@
 
   .input_field {
     @apply flex items-center justify-center gap-4 border-2 p-4 rounded-lg bg-gray-100 font-medium;
+  }
+
+  .publish_labels {
+    @apply text-sm font-medium text-gray-400;
+  }
+
+  .publish_input {
+    @apply w-full bg-gray-100 rounded-sm outline-none p-2 font-medium border;
+  }
+
+  .publish_title {
+    @apply text-2xl font-medium mt-6 mb-2;
+  }
+
+  .publish_description {
+    @apply text-lg font-normal my-2;
+  }
+}
+
+@layer utilities {
+  @variants responsive {
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
   }
 }
 

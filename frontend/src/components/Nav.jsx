@@ -1,12 +1,18 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
+
+import { UserContext } from "../context/UserContextProvider";
+import Profileicon from "./ProfileIcon";
+import { Toaster } from "react-hot-toast";
 
 const Nav = () => {
   const [searchBoxVisibility, setSearchBoxVisibility] = useState(false);
+  const { user, setUser } = useContext(UserContext);
 
   return (
     <>
       <nav className="navbar">
+        <Toaster />
         <Link to="/" className="flex-none w-12">
           <img src="./assets/icon/logo-1.svg" className="w-full" />
         </Link>
@@ -45,13 +51,19 @@ const Nav = () => {
             <p className="font-noto">Write</p>
           </Link>
 
-          <Link to="/signin" className="btn-dark py-2">
-            <p>Sign In</p>
-          </Link>
+          {user ? (
+            <Profileicon />
+          ) : (
+            <>
+              <Link to="/signin" className="btn-dark py-2">
+                <p>Sign In</p>
+              </Link>
 
-          <Link to="/signup" className="btn-light py-2 hidden md:block">
-            <p>Sign Up</p>
-          </Link>
+              <Link to="/signup" className="btn-light py-2 hidden md:block">
+                <p>Sign Up</p>
+              </Link>
+            </>
+          )}
         </div>
       </nav>
 

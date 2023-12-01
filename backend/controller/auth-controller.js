@@ -1,6 +1,8 @@
 import User from "../model/user.js";
 import bcrypt from "bcrypt";
 
+import generateToken from "../service/generateToken.js";
+
 const signup = async (req, res) => {
   const { fullname, email, password } = req.body;
   // console.log(fullname, email, password);
@@ -45,6 +47,7 @@ const signup = async (req, res) => {
           success: true,
           message: "User signed up successfully",
           user: newUser,
+          token: generateToken(newUser._id),
         });
       }
     });
@@ -87,6 +90,7 @@ const signin = async (req, res) => {
             success: true,
             message: "Login successfull",
             user: isUserExists,
+            token: generateToken(isUserExists._id),
           });
         } else {
           res.status(401).json({

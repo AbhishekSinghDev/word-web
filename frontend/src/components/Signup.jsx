@@ -6,7 +6,8 @@ import hideEye from "../../public/assets/icon/hide-eye.svg";
 import fullName from "../../public/assets/icon/full-name.svg";
 
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { UserContext } from "../context/UserContextProvider";
 
 import { Toaster, toast } from "react-hot-toast";
 import axios from "axios";
@@ -14,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const navigate = useNavigate();
+  const { user, setUser } = useContext(UserContext);
   const [fullname, setFullName] = useState("");
   const [emailInput, setEmailInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
@@ -45,13 +47,12 @@ const Signup = () => {
         config
       );
 
-      localStorage.setItem("userinfo", JSON.stringify(data.user));
-
       if (data.success == true) {
+        localStorage.setItem("access_token", JSON.stringify(data.token));
         toast.success("User registerd successfully", {
           duration: 3000,
         });
-
+        setUser(data.token);
         navigate("/");
       }
     } catch (err) {
