@@ -9,8 +9,7 @@ const getUserDetails = async (req, res) => {
     });
   }
   try {
-    const response = User.findById(userid);
-    console.log(response);
+    const response = await User.findById(userid);
     if (response) {
       return res.status(200).json({
         success: true,

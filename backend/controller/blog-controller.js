@@ -1,4 +1,5 @@
 import Blog from "../model/blog.js";
+import User from "../model/user.js";
 
 const publishBlog = async (req, res) => {
   const { title, banner, description, content, tag } = req.body;
@@ -21,10 +22,23 @@ const publishBlog = async (req, res) => {
     });
 
     await newBlog.save();
-    res.status(201).json({
-      success: true,
-      message: "Blog published successfully",
-    });
+
+    const updateUser = await User.findByIdAndUpdate(
+      req.userid,
+      {
+        $push: { blogs: newBlog._id },
+      },
+      {
+        new: true,
+      }
+    );
+
+    if (updateUser) {
+      res.status(201).json({
+        success: true,
+        message: "Blog published successfully",
+      });
+    }
   } catch (err) {
     console.log("Error while publishing blog");
     console.log(err);
