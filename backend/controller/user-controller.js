@@ -9,7 +9,7 @@ const getUserDetails = async (req, res) => {
     });
   }
   try {
-    const response = await User.findById(userid);
+    const response = await User.findById(userid).populate("blogs");
     if (response) {
       return res.status(200).json({
         success: true,

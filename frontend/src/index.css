@@ -135,6 +135,10 @@
   .publish_description {
     @apply text-lg font-normal my-2;
   }
+
+  .profile_counts {
+    @apply flex flex-col items-center justify-center text-lg p-2 cursor-pointer;
+  }
 }
 
 @layer utilities {

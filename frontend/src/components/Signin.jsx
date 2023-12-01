@@ -12,8 +12,8 @@ import { Toaster, toast } from "react-hot-toast";
 import axios from "axios";
 
 const Signin = () => {
-  const [emailInput, setEmailInput] = useState("");
-  const [passwordInput, setPasswordInput] = useState("");
+  const [emailInput, setEmailInput] = useState();
+  const [passwordInput, setPasswordInput] = useState();
   const [showPassword, setShowPassword] = useState("password");
   const navigate = useNavigate();
   const { user, setUser } = useContext(UserContext);

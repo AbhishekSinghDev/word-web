@@ -63,8 +63,8 @@ const signin = async (req, res) => {
   const { email, password } = req.body;
 
   // check weither any of the field is empty
-  if ((!email, !password)) {
-    res
+  if (!email || !password) {
+    return res
       .status(400)
       .json({ success: false, message: "Please provide all the details" });
   }
