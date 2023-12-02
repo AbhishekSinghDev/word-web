@@ -7,6 +7,7 @@ import { Route, Routes } from "react-router-dom";
 // import Blog from "../pages/Blog";
 // import UpdateBlog from "../pages/UpdateBlog";
 import React, { Suspense } from "react";
+import UserProfile from "../pages/UserProfile";
 
 const Home = React.lazy(() => import("../pages/Home"));
 const Editor = React.lazy(() => import("../pages/Editor"));
@@ -27,6 +28,7 @@ const Routers = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/blog/:blogid" element={<Blog />} />
         <Route path="/update-blog/:blogid" element={<UpdateBlog />} />
+        <Route path="/user-profile/:userid" element={<UserProfile />} />
       </Routes>
     </Suspense>
   );

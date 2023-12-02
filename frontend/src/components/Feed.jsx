@@ -10,6 +10,7 @@ const Feed = ({ blogs }) => {
             post={blog}
             renderingOn="Feed"
             author={blog.author.fullname}
+            authorId={blog.author._id}
           />
         ))}
     </div>

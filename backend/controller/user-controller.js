@@ -10,6 +10,8 @@ const getUserDetails = async (req, res) => {
   }
   try {
     const response = await User.findById(userid).populate("blogs");
+    // .populate("followers")
+    // .populate("following");
     if (response) {
       return res.status(200).json({
         success: true,
@@ -42,6 +44,8 @@ const getSingleUserDetail = async (req, res) => {
 
   try {
     const response = await User.findById(userid).populate("blogs");
+    // .populate("followers")
+    // .populate("following");
     if (response) {
       res.status(200).json({
         success: true,
@@ -58,5 +62,55 @@ const getSingleUserDetail = async (req, res) => {
     console.log(err);
   }
 };
+const followUser = async (req, res) => {
+  // user_id = person whom to follow or the person who will be followed
+  // currUser_id = person who is following the other one
+  const user_id = req.params.user_id;
+  const currUser_id = req.userid;
 
-export { getUserDetails, getSingleUserDetail };
+  if (!user_id) {
+    return res.status(400).json({
+      success: false,
+      message: "Prover user id",
+    });
+  }
+
+  try {
+    // fetch details of person to be followed
+    const userToFollow = await User.findByIdAndUpdate(
+      user_id,
+      {
+        $push: {
+          followers: currUser_id,
+        },
+      },
+      { new: true }
+    );
+
+    const userFollowing = await User.findByIdAndUpdate(
+      currUser_id,
+      {
+        $push: {
+          following: user_id,
+        },
+      },
+      { new: true }
+    );
+
+    if (userToFollow && userFollowing) {
+      return res.status(200).json({
+        success: true,
+        message: "User followed successfully",
+      });
+    }
+  } catch (err) {
+    console.log("Error while following the user");
+    console.log(err);
+    return res.status(500).json({
+      success: false,
+      message: "Unable to follow the user, Internal server error",
+    });
+  }
+};
+
+export { getUserDetails, getSingleUserDetail, followUser };

@@ -111,9 +111,10 @@ const updateBlog = async (req, res) => {
     const blog = await Blog.findById(blog_id);
 
     if (blog.author != user_id) {
-      return res.status(400).json({
+      return res.status(401).json({
         success: false,
-        message: "You cannot update this blog, Unauthorized updation detected",
+        message:
+          "You cannot update someone else blog, Unauthorized access detected",
       });
     }
 
@@ -146,6 +147,14 @@ const deleteBlog = async (req, res) => {
       return res.status(404).json({
         success: false,
         message: "Blog not found",
+      });
+    }
+
+    if (blog.author != user_id) {
+      return res.status(401).json({
+        success: false,
+        message:
+          "You cannot delete someone else blog, Unauthorized access detected",
       });
     }
 

@@ -40,12 +40,14 @@ const Profile = () => {
       {user === null && <Navigate to="/signup" />}
       <Toaster />
       <section className="h-auto">
-        <div className="flex gap-14">
-          <div className="w-[30%] flex flex-col items-center justify-start mt-5">
-            <img
-              src={demoUser}
-              className="aspect-square h-[100px] w-[100px] md:h-[200px] md:w-[200px] lg:h-[350px] lg:w-[350px] rounded-full"
-            />
+        <div className="flex flex-col md:flex-row gap-14">
+          <div className="w-[100%] md:w-[30%] flex flex-col items-center justify-start mt-5">
+            <div>
+              <img
+                src={demoUser}
+                className="aspect-square h-[400px] w-[400px] md:h-[200px] md:w-[200px] lg:h-[350px] lg:w-[350px] object-cover"
+              />
+            </div>
             <p className="text-4xl font-bold mt-10">
               {userProfile.fullname && userProfile.fullname}
             </p>
@@ -53,7 +55,8 @@ const Profile = () => {
               {userProfile.email && userProfile.email}
             </p>
           </div>
-          <div className="w-[70%]">
+
+          <div className="w-[100%] md:w-[70%]">
             <nav className="p-4 border-b">
               <p className="text-lg font-medium cursor-pointer underline underline-offset-8">
                 Profile
@@ -66,11 +69,15 @@ const Profile = () => {
                 <p className="text-sm">Posts</p>
               </div>
               <div className="profile_counts">
-                <p className="font-bold">100</p>
+                <p className="font-bold">
+                  {userProfile.followers && userProfile.followers.length}
+                </p>
                 <p className="text-sm">Followers</p>
               </div>
               <div className="profile_counts">
-                <p className="font-bold">200</p>
+                <p className="font-bold">
+                  {userProfile.following && userProfile.following.length}
+                </p>
                 <p className="text-sm">Following</p>
               </div>
             </div>

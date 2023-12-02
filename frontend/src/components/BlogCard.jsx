@@ -7,13 +7,16 @@ import { UserContext } from "../context/UserContextProvider";
 
 import { Toaster, toast } from "react-hot-toast";
 
-const BlogCard = ({ post, renderingOn, author, authorId }) => {
+const BlogCard = ({ post, renderingOn, author, authorId, authorEmail }) => {
   const { title, banner, description, createdAt, tag } = post;
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleClick = () => {
     navigate(`/blog/${post._id}`);
+  };
+  const handleAuthorClick = () => {
+    navigate(`/user-profile/${authorId}`);
   };
 
   const handleUpdate = () => {
@@ -43,7 +46,10 @@ const BlogCard = ({ post, renderingOn, author, authorId }) => {
     <>
       <div className="flex gap-2 border-b m-2 p-4 cursor-pointer">
         <div className={renderingOn === "Home" ? "w-full" : "w-[70%]"}>
-          <p className="text-sm font-semibold mt-2 mb-1" onClick={handleClick}>
+          <p
+            className="text-sm font-semibold mt-2 mb-1"
+            onClick={handleAuthorClick}
+          >
             {author}
           </p>
           <p

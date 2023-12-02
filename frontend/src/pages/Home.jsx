@@ -51,7 +51,9 @@ const Home = () => {
         }
       }
     };
-    fetchUserDetails();
+    if (user) {
+      fetchUserDetails();
+    }
   }, [user]);
 
   return (
