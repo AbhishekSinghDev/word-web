@@ -35,7 +35,7 @@ const Profile = () => {
     <>
       {user === null && <Navigate to="/signup" />}
 
-      <section className="">
+      <section className="h-auto">
         <div className="flex gap-14">
           <div className="w-[30%] flex flex-col items-center justify-start mt-5">
             <img
@@ -71,7 +71,7 @@ const Profile = () => {
               </div>
             </div>
 
-            <div className="h-[60%] overflow-y-scroll no-scrollbar mt-10">
+            <div className="h-[46%] overflow-y-scroll no-scrollbar mt-10">
               <p className="font-semibold text-lg p-2">Your Posts</p>
               {userBlogs.length != 0 ? (
                 userBlogs.map((blog) => (
@@ -80,6 +80,7 @@ const Profile = () => {
                     post={blog}
                     renderingOn="myprofile"
                     author={userProfile.fullname}
+                    authorId={userProfile._id}
                   />
                 ))
               ) : (

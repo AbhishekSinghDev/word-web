@@ -96,7 +96,46 @@ const getSingleBlog = async (req, res) => {
     console.log(err);
   }
 };
-const updateBlog = async (req, res) => {};
+const updateBlog = async (req, res) => {
+  const blog_id = req.params.blog_id;
+  const { title, content, tag } = req.body;
+  const user_id = req.userid;
+  if (!blog_id) {
+    return res.status(400).json({
+      success: false,
+      message: "Blog id not provided",
+    });
+  }
+
+  try {
+    const blog = await Blog.findById(blog_id);
+
+    if (blog.author != user_id) {
+      return res.status(400).json({
+        success: false,
+        message: "You cannot update this blog, Unauthorized updation detected",
+      });
+    }
+
+    blog.title = title;
+    blog.content = content;
+    blog.tag = tag;
+
+    await blog.save();
+
+    return res.status(202).json({
+      success: true,
+      message: "Blog successfully updated",
+    });
+  } catch (err) {
+    console.log("Error while updating blog");
+    console.log(err);
+    res.status(500).json({
+      success: false,
+      message: "Unable to update blog at the moment, Internal server error",
+    });
+  }
+};
 const deleteBlog = async (req, res) => {};
 
 export { publishBlog, getAllBlogs, getSingleBlog, updateBlog, deleteBlog };

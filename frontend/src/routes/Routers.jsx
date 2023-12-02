@@ -5,6 +5,7 @@ import Signup from "../components/Signup";
 import Signin from "../components/Signin";
 import Profile from "../components/Profile";
 import Blog from "../pages/Blog";
+import UpdateBlog from "../pages/UpdateBlog";
 
 const Routers = () => {
   return (
@@ -15,6 +16,7 @@ const Routers = () => {
       <Route path="/signup" element={<Signup />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/blog/:blogid" element={<Blog />} />
+      <Route path="/update-blog/:blogid" element={<UpdateBlog />} />
     </Routes>
   );
 };
