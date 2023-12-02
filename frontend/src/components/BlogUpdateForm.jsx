@@ -44,7 +44,7 @@ const BlogUpdateForm = ({ oldBlog, blogId }) => {
         toast.success(`${data.message}`);
       }
     } catch (err) {
-      console.log(err);
+      toast.error(err.message);
       if (err.response.data.success == false) {
         toast.error(`${err.response.data.message}`);
       }

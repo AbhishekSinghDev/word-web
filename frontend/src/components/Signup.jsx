@@ -56,6 +56,7 @@ const Signup = () => {
         navigate("/");
       }
     } catch (err) {
+      toast.error(err.message);
       if (err.response.data.success == false) {
         toast.error(`${err.response.data.message}`);
       }

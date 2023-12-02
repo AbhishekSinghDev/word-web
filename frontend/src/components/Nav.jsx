@@ -7,7 +7,7 @@ import { Toaster } from "react-hot-toast";
 
 const Nav = () => {
   const [searchBoxVisibility, setSearchBoxVisibility] = useState(false);
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   return (
     <>

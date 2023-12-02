@@ -32,7 +32,7 @@ const BlogCard = ({ post, renderingOn, author, authorId }) => {
         toast.success(`${data.message}`);
       }
     } catch (err) {
-      console.log(err);
+      toast.error(err.message);
       if (err.response.data.success == false) {
         toast.error(`${err.response.data.message}`);
       }
@@ -64,7 +64,6 @@ const BlogCard = ({ post, renderingOn, author, authorId }) => {
           <p className="text-sm font-semibold">
             {moment(createdAt).format("MMM Do YYYY")}
           </p>
-          {console.log(authorId)}
           {authorId && authorId == post.author ? (
             <div className="flex gap-4 mt-4">
               <p
@@ -88,7 +87,7 @@ const BlogCard = ({ post, renderingOn, author, authorId }) => {
           <div></div>
         ) : (
           <div className="w-[30%] p-2 sm:block hidden" onClick={handleClick}>
-            <img src={banner} className="rounded-lg" />
+            <img src={banner} className="rounded-lg object-cover" alt={title} />
           </div>
         )}
       </div>

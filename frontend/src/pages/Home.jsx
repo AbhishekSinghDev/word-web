@@ -1,5 +1,4 @@
-import Feed from "../components/Feed";
-import Tags from "../components/Tags";
+import React, { Suspense } from "react";
 
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
@@ -8,15 +7,27 @@ import { Link } from "react-router-dom";
 
 import { UserContext } from "../context/UserContextProvider";
 
+import Tags from "../components/Tags";
+import toast, { Toaster } from "react-hot-toast";
+
+const Feed = React.lazy(() => import("../components/Feed"));
+
 const Home = () => {
   const [blogs, setBlogs] = useState([]);
   const [userPosts, setUserPosts] = useState([]);
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     const fetchAllPost = async () => {
-      const { data } = await axios.get("/api/v1/blog/all");
-      setBlogs(data.blogs.reverse());
+      try {
+        const { data } = await axios.get("/api/v1/blog/all");
+        setBlogs(data.blogs.reverse());
+      } catch (err) {
+        toast.error(err.message);
+        if (err.response.data.success == false) {
+          toast.error(`${err.response.data.message}`);
+        }
+      }
     };
 
     fetchAllPost();
@@ -34,7 +45,10 @@ const Home = () => {
         const { data } = await axios.post("/api/v1/user", {}, config);
         setUserPosts(data.user.blogs);
       } catch (err) {
-        console.log(err);
+        toast.error(err.message);
+        if (err.response.data.success == false) {
+          toast.error(`${err.response.data.message}`);
+        }
       }
     };
     fetchUserDetails();
@@ -42,13 +56,16 @@ const Home = () => {
 
   return (
     <>
+      <Toaster />
       <section className="">
         <div className="flex md:flex-row flex-col-reverse gap-4">
           <div className="w-full md:w-[70%] h-[87vh] overflow-y-scroll no-scrollbar">
             <p className="text-3xl font-bold font-montserrat px-4">
               Latest Posts
             </p>
-            <Feed blogs={blogs} />
+            <Suspense fallback={<p>Loading...</p>}>
+              <Feed blogs={blogs} />
+            </Suspense>
           </div>
 
           <hr />
@@ -65,6 +82,7 @@ const Home = () => {
                   </div>
                 ))}
             </div>
+
             <p className="text-2xl font-semibold p-4 font-montserrat">
               {" "}
               Your Posts

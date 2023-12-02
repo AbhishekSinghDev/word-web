@@ -6,6 +6,7 @@ import axios from "axios";
 import { Navigate } from "react-router-dom";
 
 import demoUser from "../../public/assets/images/avatars/1.jpg";
+import toast, { Toaster } from "react-hot-toast";
 
 const Profile = () => {
   const { user } = useContext(UserContext);
@@ -25,7 +26,10 @@ const Profile = () => {
         setUserProfile(data.user);
         setUserBlogs(data.user.blogs.reverse());
       } catch (err) {
-        console.log(err);
+        toast.error(err.message);
+        if (err.response.data.success == false) {
+          toast.error(`${err.response.data.message}`);
+        }
       }
     };
     fetchUserDetails();
@@ -34,7 +38,7 @@ const Profile = () => {
   return (
     <>
       {user === null && <Navigate to="/signup" />}
-
+      <Toaster />
       <section className="h-auto">
         <div className="flex gap-14">
           <div className="w-[30%] flex flex-col items-center justify-start mt-5">

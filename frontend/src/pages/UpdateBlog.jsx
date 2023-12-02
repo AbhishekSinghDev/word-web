@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import BlogUpdateForm from "../components/BlogUpdateForm";
+import toast from "react-hot-toast";
 
 const UpdateBlog = () => {
   const [oldBlog, setOldBlog] = useState({});
@@ -10,8 +11,15 @@ const UpdateBlog = () => {
 
   useEffect(() => {
     const fetchBlogDetails = async () => {
-      const { data } = await axios.get(`/api/v1/blog/${blogid}`);
-      setOldBlog(data.blog);
+      try {
+        const { data } = await axios.get(`/api/v1/blog/${blogid}`);
+        setOldBlog(data.blog);
+      } catch (err) {
+        toast.error(err.message);
+        if (err.response.data.success == false) {
+          toast.error(`${err.response.data.message}`);
+        }
+      }
     };
 
     fetchBlogDetails();

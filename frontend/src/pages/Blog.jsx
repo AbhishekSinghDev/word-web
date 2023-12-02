@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 
 import axios from "axios";
 import moment from "moment";
+import toast, { Toaster } from "react-hot-toast";
 
 const Blog = () => {
   const { blogid } = useParams();
@@ -11,9 +12,16 @@ const Blog = () => {
 
   useEffect(() => {
     const fetchBlogDetails = async () => {
-      const { data } = await axios.get(`/api/v1/blog/${blogid}`);
-      setAuthor(data.blog.author);
-      setBlog(data.blog);
+      try {
+        const { data } = await axios.get(`/api/v1/blog/${blogid}`);
+        setAuthor(data.blog.author);
+        setBlog(data.blog);
+      } catch (err) {
+        toast.error(err.message);
+        if (err.response.data.success == false) {
+          toast.error(`${err.response.data.message}`);
+        }
+      }
     };
 
     fetchBlogDetails();
@@ -21,6 +29,7 @@ const Blog = () => {
 
   return (
     <>
+      <Toaster />
       <section>
         <div className="mt-10 mb-4">
           <p className="font-bold text-5xl">{blog.title}</p>

@@ -46,6 +46,7 @@ const Signin = () => {
       setUser(data.token);
       navigate("/");
     } catch (err) {
+      toast.error(err.message);
       if (err.response.data.success == false) {
         toast.error(`${err.response.data.message}`, { duration: 3000 });
       }

@@ -33,16 +33,20 @@ const BlogEditor = () => {
     data.append("upload_preset", "word-web");
     data.append("cloud_name", "dhckd5nam");
 
-    await fetch("https://api.cloudinary.com/v1_1/dhckd5nam/image/upload", {
-      method: "POST",
-      body: data,
-    })
-      .then(toast.success("Uploading Image", { duration: 3000 }))
-      .then((res) => res.json())
-      .then((data) => setBlog({ ...blog, banner: data.url }))
-      .catch((err) => console.log(err));
+    try {
+      await fetch("https://api.cloudinary.com/v1_1/dhckd5nam/image/upload", {
+        method: "POST",
+        body: data,
+      })
+        .then(toast.success("Uploading Image", { duration: 3000 }))
+        .then((res) => res.json())
+        .then((data) => setBlog({ ...blog, banner: data.url }))
+        .catch((err) => console.log(err));
 
-    toast.success("Image Uploaded Successfully");
+      toast.success("Image Uploaded Successfully");
+    } catch (err) {
+      toast.error(err.message);
+    }
   };
   const handleTitleKeyDown = (e) => {
     if (e.keyCode == 13) {
