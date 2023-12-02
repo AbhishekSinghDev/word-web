@@ -1,8 +1,15 @@
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 
+import axios from "axios";
+import { useContext } from "react";
+import { UserContext } from "../context/UserContextProvider";
+
+import { Toaster, toast } from "react-hot-toast";
+
 const BlogCard = ({ post, renderingOn, author, authorId }) => {
   const { title, banner, description, createdAt, tag } = post;
+  const { user } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -12,7 +19,25 @@ const BlogCard = ({ post, renderingOn, author, authorId }) => {
   const handleUpdate = () => {
     navigate(`/update-blog/${post._id}`);
   };
-  const handleDelete = () => {};
+  const handleDelete = async () => {
+    try {
+      const { data } = await axios.delete(`/api/v1/blog/${post._id}`, {
+        headers: {
+          Authorization: `Bearer ${user}`,
+        },
+      });
+
+      navigate("/");
+      if (data.success) {
+        toast.success(`${data.message}`);
+      }
+    } catch (err) {
+      console.log(err);
+      if (err.response.data.success == false) {
+        toast.error(`${err.response.data.message}`);
+      }
+    }
+  };
 
   return (
     <>
@@ -39,8 +64,8 @@ const BlogCard = ({ post, renderingOn, author, authorId }) => {
           <p className="text-sm font-semibold">
             {moment(createdAt).format("MMM Do YYYY")}
           </p>
-
-          {authorId && authorId === post.author ? (
+          {console.log(authorId)}
+          {authorId && authorId == post.author ? (
             <div className="flex gap-4 mt-4">
               <p
                 className="font-medium border border-blue-400 rounded-full px-4 py-1 bg-blue-500 text-white text-sm"

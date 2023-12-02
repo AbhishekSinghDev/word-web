@@ -8,7 +8,7 @@ import { Navigate } from "react-router-dom";
 import demoUser from "../../public/assets/images/avatars/1.jpg";
 
 const Profile = () => {
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const [userProfile, setUserProfile] = useState({});
   const [userBlogs, setUserBlogs] = useState([]);
 
@@ -71,7 +71,7 @@ const Profile = () => {
               </div>
             </div>
 
-            <div className="h-[46%] overflow-y-scroll no-scrollbar mt-10">
+            <div className="h-[100%] overflow-y-scroll no-scrollbar mt-10">
               <p className="font-semibold text-lg p-2">Your Posts</p>
               {userBlogs.length != 0 ? (
                 userBlogs.map((blog) => (

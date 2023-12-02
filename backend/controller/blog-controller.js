@@ -136,6 +136,36 @@ const updateBlog = async (req, res) => {
     });
   }
 };
-const deleteBlog = async (req, res) => {};
+const deleteBlog = async (req, res) => {
+  const user_id = req.userid;
+  const blog_id = req.params.blog_id;
+
+  try {
+    const blog = await Blog.findById(blog_id);
+    if (blog == null) {
+      return res.status(404).json({
+        success: false,
+        message: "Blog not found",
+      });
+    }
+
+    await Blog.deleteOne({ _id: blog_id });
+    const updateUser = await User.updateOne(
+      { _id: user_id },
+      { $pull: { blogs: blog_id } }
+    );
+
+    if (updateUser) {
+      return res.status(202).json({
+        success: true,
+        message: "Blog deleted successfully",
+        user: updateUser,
+      });
+    }
+  } catch (err) {
+    console.log("Error while deleting the post");
+    console.log(err);
+  }
+};
 
 export { publishBlog, getAllBlogs, getSingleBlog, updateBlog, deleteBlog };
