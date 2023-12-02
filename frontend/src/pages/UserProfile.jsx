@@ -55,7 +55,7 @@ const UserProfile = () => {
     if (user) {
       fetchLoggedInUserDetails();
     }
-  }, [user]);
+  }, [isLoggedUserFollows]);
 
   useEffect(() => {
     // check weither user follows the user or not
@@ -93,6 +93,27 @@ const UserProfile = () => {
       }
     } catch (err) {
       toast.error(err.message);
+    }
+  };
+
+  const handleUnfollow = async () => {
+    const wantedToUnfollow = confirm("Are you sure, you want to unfollow");
+
+    if (wantedToUnfollow) {
+      try {
+        const { data } = await axios.delete(`/api/v1/user/${userid}`, {
+          headers: {
+            Authorization: `Bearer ${user}`,
+          },
+        });
+
+        if (data.success) {
+          toast.success(data.message);
+          setIsLoggedUserFollows("no");
+        }
+      } catch (err) {
+        toast.error(err.message);
+      }
     }
   };
 
@@ -142,12 +163,14 @@ const UserProfile = () => {
                 <p className="text-sm">Following</p>
               </div>
             </div>
-            {/* {console.log("logged user", loggedUser)}
-            {console.log("user", userProfile)} */}
+
             {loggedUser && loggedUser._id != userProfile._id ? (
               <div>
                 {isLoggedUserFollows && isLoggedUserFollows === "yes" ? (
-                  <p className="w-full text-lg rounded-full border-2 py-2 text-center my-6 cursor-pointer">
+                  <p
+                    className="w-full text-lg rounded-full border-2 py-2 text-center my-6 cursor-pointer"
+                    onClick={handleUnfollow}
+                  >
                     Following
                   </p>
                 ) : (

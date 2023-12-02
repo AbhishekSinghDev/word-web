@@ -112,5 +112,52 @@ const followUser = async (req, res) => {
     });
   }
 };
+const unfollowUser = async (req, res) => {
+  // user_id = person to be unfollowed
+  // currUser_id = person is trying to unfollow
+  const user_id = req.params.user_id;
+  const currUser_id = req.userid;
+  if (!user_id) {
+    return res.status(400).json({
+      success: false,
+      message: "Provide user id",
+    });
+  }
 
-export { getUserDetails, getSingleUserDetail, followUser };
+  try {
+    // person to be unfollowed
+    const personUnfollowed = await User.findByIdAndUpdate(user_id, {
+      $pull: {
+        followers: currUser_id,
+      },
+    });
+
+    // update curr user following list
+    const currUser = await User.findByIdAndUpdate(currUser_id, {
+      $pull: {
+        following: user_id,
+      },
+    });
+
+    if (personUnfollowed && currUser) {
+      return res.status(200).json({
+        success: true,
+        message: "Unfollowed Successfully",
+      });
+    } else {
+      return res.status(500).json({
+        success: false,
+        message: "Unable to unfollow the user",
+      });
+    }
+  } catch (err) {
+    console.log("Error while unfollowing the user");
+    console.log(err);
+    return res.status(500).json({
+      success: false,
+      message: "Unable to unfollow user, Internal server error",
+    });
+  }
+};
+
+export { getUserDetails, getSingleUserDetail, followUser, unfollowUser };
