@@ -65,7 +65,7 @@
   }
 
   .link {
-    @apply text-gray-900 hover:text-black hover:bg-gray-200 p-3 px-6 block hover:rounded-full;
+    @apply text-gray-900 hover:text-black sm:hover:bg-gray-200 py-2 px-3 sm:p-2 sm:px-6 block sm:hover:rounded-full;
   }
 
   .hide {

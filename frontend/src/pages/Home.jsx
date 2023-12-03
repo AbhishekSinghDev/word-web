@@ -17,6 +17,9 @@ const Home = () => {
   const [userPosts, setUserPosts] = useState([]);
   const { user } = useContext(UserContext);
 
+  const [searchText, setSearchText] = useState();
+  const [searchResults, setSearchResults] = useState([]);
+
   useEffect(() => {
     const fetchAllPost = async () => {
       try {
@@ -56,17 +59,57 @@ const Home = () => {
     }
   }, [user]);
 
+  const filterBlogs = (searchtext) => {
+    const regex = new RegExp(searchtext, "i"); // i flag means case-insensetive
+
+    return blogs.filter(
+      (blog) =>
+        regex.test(blog.author.fullname) ||
+        regex.test(blog.tag) ||
+        regex.test(blog.description) ||
+        regex.test(blog.content) ||
+        regex.test(blog.title)
+    );
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchText(e.target.value);
+
+    const searchedResults = filterBlogs(e.target.value);
+    setSearchResults(searchedResults);
+  };
+
+  const handleTagClick = (e) => {
+    const tag = e.target.innerHTML;
+    setSearchText(tag);
+
+    const searchedResults = filterBlogs(tag);
+    setSearchResults(searchedResults);
+  };
+
+  const handleCutButton = () => {
+    setSearchText("");
+  };
+
   return (
     <>
       <Toaster />
       <section className="">
         <div className="flex md:flex-row flex-col-reverse gap-4">
-          <div className="w-full md:w-[70%] h-[87vh] overflow-y-scroll no-scrollbar">
-            <p className="text-3xl font-bold font-montserrat px-4">
+          <div className="w-full md:w-[70%] h-[87vh]">
+            <p className="text-3xl font-bold font-montserrat ml-4">
               Latest Posts
             </p>
             <Suspense fallback={<p>Loading...</p>}>
-              <Feed blogs={blogs} />
+              <Feed
+                blogs={blogs}
+                searchText={searchText}
+                setSearchText={setSearchText}
+                searchResults={searchResults}
+                setSearchResults={setSearchResults}
+                handleSearchChange={handleSearchChange}
+                handleCutButton={handleCutButton}
+              />
             </Suspense>
           </div>
 
@@ -78,7 +121,8 @@ const Home = () => {
                 Tags.map((tag, index) => (
                   <div
                     key={index}
-                    className="bg-gray-100 rounded-full px-4 py-2 text-black"
+                    className="bg-gray-100 rounded-full px-4 py-2 text-black cursor-pointer"
+                    onClick={handleTagClick}
                   >
                     {tag}
                   </div>
@@ -89,7 +133,7 @@ const Home = () => {
               {" "}
               Your Posts
             </p>
-            <div className="md:h-[58vh] overflow-y-scroll no-scrollbar">
+            <div className="md:h-[55vh] overflow-y-scroll no-scrollbar">
               {userPosts.length != 0 && user ? (
                 userPosts.map((blog) => (
                   <BlogCard

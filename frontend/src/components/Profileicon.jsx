@@ -32,12 +32,12 @@ const Profileicon = () => {
       <Link to="/profile">
         <img
           src={userAvatar}
-          className="h-10 w-10 rounded-full cursor-pointer"
+          className="h-8 w-8 sm:h-10 sm:w-10 rounded-full cursor-pointer"
         />
       </Link>
       <button
         onClick={handleLogout}
-        className="border-none px-10 py-2 whitespace-nowrap rounded-md bg-gray-500 text-white font-medium"
+        className="border-none px-4 text-sm sm:text-base sm:px-10 py-2 whitespace-nowrap rounded-md bg-gray-500 text-white font-medium"
       >
         Log out
       </button>
