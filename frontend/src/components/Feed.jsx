@@ -1,8 +1,7 @@
-import React from "react";
 import BlogCard from "../components/BlogCard";
 
-import SearchIcon from "../../public/assets/icon/search.svg";
-import CrossIcon from "../../public/assets/icon/cross.svg";
+import SearchIcon from "../assets/icon/search.svg";
+import CrossIcon from "../assets/icon/cross.svg";
 
 const Feed = ({
   blogs,

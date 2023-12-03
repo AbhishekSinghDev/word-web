@@ -5,7 +5,7 @@ import axios from "axios";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContextProvider";
 
-import { Toaster, toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 const BlogCard = ({ post, renderingOn, author, authorId, authorEmail }) => {
   const { title, banner, description, createdAt, tag } = post;
@@ -59,7 +59,7 @@ const BlogCard = ({ post, renderingOn, author, authorId, authorEmail }) => {
             {title}
           </p>
           <p
-            className="text-sm mt-2 mb-2 text-ellipsis lg:whitespace-normal whitespace-nowrap overflow-hidden"
+            className="text-sm mt-2 mb-2 text-ellipsis lg:whitespace-normal whitespace-nowrap overflow-hidden line-clamp-3"
             onClick={handleClick}
           >
             {description}
@@ -92,8 +92,18 @@ const BlogCard = ({ post, renderingOn, author, authorId, authorEmail }) => {
         {renderingOn == "Home" ? (
           <div></div>
         ) : (
-          <div className="w-[30%] p-2 sm:block hidden" onClick={handleClick}>
-            <img src={banner} className="rounded-lg object-cover" alt={title} />
+          <div
+            className="w-[30%] overflow-hidden p-2 sm:block hidden"
+            onClick={handleClick}
+          >
+            <img
+              src={banner}
+              className="rounded-lg object-cover"
+              alt={title}
+              loading="lazy"
+              width="100%"
+              height="100%"
+            />
           </div>
         )}
       </div>

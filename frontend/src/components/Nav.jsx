@@ -1,12 +1,14 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Link, Outlet } from "react-router-dom";
 
 import { UserContext } from "../context/UserContextProvider";
 import Profileicon from "./ProfileIcon";
 import { Toaster } from "react-hot-toast";
 
+import Logo from "../assets/icon/logo-1.svg";
+import WriteIcon from "../assets/icon/write.svg";
+
 const Nav = () => {
-  const [searchBoxVisibility, setSearchBoxVisibility] = useState(false);
   const { user } = useContext(UserContext);
 
   return (
@@ -17,7 +19,7 @@ const Nav = () => {
           to="/"
           className="flex-none flex items-center justify-center w-auto gap-4"
         >
-          <img src="./assets/icon/logo-1.svg" className="w-12" />
+          <img src={Logo} className="w-12" alt="logo" />
           <p className="text-xl font-bold font-montserrat hidden sm:block">
             Word Web
           </p>
@@ -28,7 +30,7 @@ const Nav = () => {
             to="/editor"
             className="flex gap-2 link items-center justify-center"
           >
-            <img src="./assets/icon/write.svg" className="h-4 opacity-90" />
+            <img src={WriteIcon} className="h-4 opacity-90" alt="w" />
             <p className="font-noto text-sm sm:text-base">Write</p>
           </Link>
 

@@ -5,13 +5,18 @@ import BlogCard from "./BlogCard";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
 
-import demoUser from "../../public/assets/images/avatars/1.jpg";
+import avatar1 from "../assets/images/avatars/1.png";
 import toast, { Toaster } from "react-hot-toast";
 
 const Profile = () => {
   const { user } = useContext(UserContext);
   const [userProfile, setUserProfile] = useState({});
   const [userBlogs, setUserBlogs] = useState([]);
+  const [userAvatar, setUserAvatar] = useState(avatar1);
+  useEffect(() => {
+    const randomAvatar = Math.floor(Math.random() * 11);
+    setUserAvatar(`../../src/assets/images/avatars/${randomAvatar}.png`);
+  }, [userAvatar]);
 
   useEffect(() => {
     const fetchUserDetails = async () => {
@@ -44,8 +49,9 @@ const Profile = () => {
           <div className="w-[100%] md:w-[30%] flex flex-col items-center justify-start mt-5">
             <div>
               <img
-                src={demoUser}
+                src={userAvatar}
                 className="aspect-square h-[400px] w-[400px] md:h-[200px] md:w-[200px] lg:h-[350px] lg:w-[350px] object-cover"
+                alt="profile_icon"
               />
             </div>
             <p className="text-4xl font-bold mt-10">

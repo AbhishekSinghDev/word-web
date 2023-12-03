@@ -1,7 +1,7 @@
 import toast, { Toaster } from "react-hot-toast";
 import { useParams } from "react-router-dom";
 
-import demoUser from "../../public/assets/images/avatars/1.jpg";
+import demoUser from "../assets/images/avatars/1.png";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import BlogCard from "../components/BlogCard";
@@ -82,7 +82,7 @@ const UserProfile = () => {
         {},
         {
           headers: {
-            Authorization: `Bearer ${user}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
