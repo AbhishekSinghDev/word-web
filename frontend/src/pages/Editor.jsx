@@ -2,7 +2,7 @@ import { Navigate } from "react-router-dom";
 import { UserContext } from "../context/UserContextProvider";
 import { createContext, useContext, useState } from "react";
 
-import BlogEditor from "../components/Blogeditor";
+import BlogEditor from "../components/BlogEditor";
 import PublishBlog from "../components/PublishBlog";
 
 const blogStructure = {
