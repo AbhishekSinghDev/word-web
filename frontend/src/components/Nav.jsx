@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { Link, Outlet } from "react-router-dom";
 
 import { UserContext } from "../context/UserContextProvider";
-import Profileicon from "./ProfileIcon";
+import Profileicon from "./Profileicon";
 import { Toaster } from "react-hot-toast";
 
 import Logo from "../assets/icon/logo-1.svg";
