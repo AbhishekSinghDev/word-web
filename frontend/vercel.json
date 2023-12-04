@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api",
+      "destination": "https://long-puce-lamb-ring.cyclic.app/"
+    }
+  ]
+}
