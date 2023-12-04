@@ -5,7 +5,7 @@ import toast, { Toaster } from "react-hot-toast";
 
 import axios from "axios";
 
-import demoBanner from "../../public/assets/images/banner/blog-banner.png";
+import demoBanner from "../assets/images/banner/blog-banner.png";
 import { useNavigate } from "react-router-dom";
 
 const PublishBlog = () => {

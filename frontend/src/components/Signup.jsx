@@ -1,9 +1,9 @@
-import email from "../../public/assets/icon/email.svg";
-import password from "../../public/assets/icon/password.svg";
-import google from "../../public/assets/icon/google.svg";
-import showEye from "../../public/assets/icon/show-eye.svg";
-import hideEye from "../../public/assets/icon/hide-eye.svg";
-import fullName from "../../public/assets/icon/full-name.svg";
+import email from "../assets/icon/email.svg";
+import password from "../assets/icon/password.svg";
+import google from "../assets/icon/google.svg";
+import showEye from "../assets/icon/show-eye.svg";
+import hideEye from "../assets/icon/hide-eye.svg";
+import fullName from "../assets/icon/full-name.svg";
 
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";

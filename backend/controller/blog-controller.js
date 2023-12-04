@@ -5,7 +5,7 @@ const publishBlog = async (req, res) => {
   const { title, banner, description, content, tag } = req.body;
   // console.log(req.body);
   if (!title && !description && !content) {
-    res.status(400).json({
+    return res.status(400).json({
       success: false,
       message: "Provide all the information for blog",
     });

@@ -6,12 +6,12 @@ import { EditorContext } from "../pages/Editor";
 // import { tools } from "./Tools";
 import toast, { Toaster } from "react-hot-toast";
 
-import blogbanner from "../../public/assets/images/banner/blog-banner.png";
+import blogbanner from "../assets/images/banner/blog-banner.png";
 
 const BlogEditor = () => {
   const {
     blog,
-    blog: { title, banner, content },
+    blog: { title, banner },
     setBlog,
     setEditorState,
   } = useContext(EditorContext);

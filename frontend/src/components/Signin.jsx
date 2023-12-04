@@ -1,8 +1,8 @@
-import email from "../../public/assets/icon/email.svg";
-import password from "../../public/assets/icon/password.svg";
-import google from "../../public/assets/icon/google.svg";
-import showEye from "../../public/assets/icon/show-eye.svg";
-import hideEye from "../../public/assets/icon/hide-eye.svg";
+import email from "../assets/icon/email.svg";
+import password from "../assets/icon/password.svg";
+import google from "../assets/icon/google.svg";
+import showEye from "../assets/icon/show-eye.svg";
+import hideEye from "../assets/icon/hide-eye.svg";
 
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
@@ -16,7 +16,7 @@ const Signin = () => {
   const [passwordInput, setPasswordInput] = useState();
   const [showPassword, setShowPassword] = useState("password");
   const navigate = useNavigate();
-  const { user, setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
 
   const setPasswordVisibility = () => {
     if (showPassword === "password") {
