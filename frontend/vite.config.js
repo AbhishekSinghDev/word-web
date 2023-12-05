@@ -13,7 +13,7 @@ export default defineConfig({
   // },
   server: {
     proxy: {
-      "/api": "https://long-puce-lamb-ring.cyclic.app/",
+      "/api/v1": "https://long-puce-lamb-ring.cyclic.app/",
     },
   },
   plugins: [react()],
