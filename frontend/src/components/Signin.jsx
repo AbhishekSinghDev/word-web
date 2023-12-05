@@ -9,7 +9,7 @@ import { useContext, useState } from "react";
 import { UserContext } from "../context/UserContextProvider";
 
 import { Toaster, toast } from "react-hot-toast";
-import axios from "axios";
+import axiosInstance from "../axiosInstance.js";
 
 const Signin = () => {
   const [emailInput, setEmailInput] = useState();
@@ -33,7 +33,7 @@ const Signin = () => {
         },
       };
 
-      const { data } = await axios.post(
+      const { data } = await axiosInstance.post(
         "/api/v1/auth/signin",
         {
           email: emailInput,

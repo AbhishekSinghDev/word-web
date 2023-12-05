@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 
 import demoUser from "../assets/images/avatars/1.png";
 import { useContext, useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "../axiosInstance.js";
 import BlogCard from "../components/BlogCard";
 
 import { UserContext } from "../context/UserContextProvider";
@@ -21,7 +21,7 @@ const UserProfile = () => {
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
-        const { data } = await axios.get(`/api/v1/user/${userid}`);
+        const { data } = await axiosInstance.get(`/api/v1/user/${userid}`);
         setUserProfile(data.user);
         setUserBlogs(data.user.blogs);
         setUserFollowers(data.user.followers);
@@ -41,7 +41,7 @@ const UserProfile = () => {
         },
       };
       try {
-        const { data } = await axios.post("/api/v1/user", {}, config);
+        const { data } = await axiosInstance.post("/api/v1/user", {}, config);
         setLoggedUser(data.user);
       } catch (err) {
         toast.error(err.message);
@@ -77,7 +77,7 @@ const UserProfile = () => {
   const handleFollow = async () => {
     const token = user;
     try {
-      const { data } = await axios.put(
+      const { data } = await axiosInstance.put(
         `/api/v1/user/${userid}`,
         {},
         {
@@ -101,7 +101,7 @@ const UserProfile = () => {
 
     if (wantedToUnfollow) {
       try {
-        const { data } = await axios.delete(`/api/v1/user/${userid}`, {
+        const { data } = await axiosInstance.delete(`/api/v1/user/${userid}`, {
           headers: {
             Authorization: `Bearer ${user}`,
           },

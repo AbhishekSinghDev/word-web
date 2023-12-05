@@ -3,7 +3,7 @@ import { EditorContext } from "../pages/Editor";
 import { UserContext } from "../context/UserContextProvider";
 import toast, { Toaster } from "react-hot-toast";
 
-import axios from "axios";
+import axiosInstance from "../axiosInstance.js";
 
 import demoBanner from "../assets/images/banner/blog-banner.png";
 import { useNavigate } from "react-router-dom";
@@ -36,7 +36,7 @@ const PublishBlog = () => {
     const token = user;
 
     try {
-      const { data } = await axios.post("/api/v1/blog/new", body, {
+      const { data } = await axiosInstance.post("/api/v1/blog/new", body, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

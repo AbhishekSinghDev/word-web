@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 
 import { useContext, useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "../axiosInstance.js";
 import BlogCard from "../components/BlogCard";
 import { Link } from "react-router-dom";
 
@@ -23,7 +23,7 @@ const Home = () => {
   useEffect(() => {
     const fetchAllPost = async () => {
       try {
-        const { data } = await axios.get("/api/v1/blog/all");
+        const { data } = await axiosInstance.get("/api/v1/blog/all");
         setBlogs(data.blogs.reverse());
       } catch (err) {
         toast.error(err.message);
@@ -45,7 +45,7 @@ const Home = () => {
         },
       };
       try {
-        const { data } = await axios.post("/api/v1/user", {}, config);
+        const { data } = await axiosInstance.post("/api/v1/user", {}, config);
         setUserPosts(data.user.blogs);
       } catch (err) {
         toast.error(err.message);

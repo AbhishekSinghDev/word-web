@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 
 import { UserContext } from "../context/UserContextProvider";
 import BlogCard from "./BlogCard";
-import axios from "axios";
+import axiosInstance from "../axiosInstance.js";
 import { Navigate } from "react-router-dom";
 
 import avatar1 from "../assets/images/avatars/1.png";
@@ -27,7 +27,7 @@ const Profile = () => {
         },
       };
       try {
-        const { data } = await axios.post("/api/v1/user", {}, config);
+        const { data } = await axiosInstance.post("/api/v1/user", {}, config);
         setUserProfile(data.user);
         setUserBlogs(data.user.blogs.reverse());
       } catch (err) {

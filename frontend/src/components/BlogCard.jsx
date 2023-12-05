@@ -1,7 +1,7 @@
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 
-import axios from "axios";
+import axiosInstance from "../axiosInstance.js";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContextProvider";
 
@@ -24,7 +24,7 @@ const BlogCard = ({ post, renderingOn, author, authorId, authorEmail }) => {
   };
   const handleDelete = async () => {
     try {
-      const { data } = await axios.delete(`/api/v1/blog/${post._id}`, {
+      const { data } = await axiosInstance.delete(`/api/v1/blog/${post._id}`, {
         headers: {
           Authorization: `Bearer ${user}`,
         },

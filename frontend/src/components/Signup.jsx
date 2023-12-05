@@ -10,7 +10,7 @@ import { useContext, useState } from "react";
 import { UserContext } from "../context/UserContextProvider";
 
 import { Toaster, toast } from "react-hot-toast";
-import axios from "axios";
+import axiosInstance from "../axiosInstance.js";
 import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
@@ -37,7 +37,7 @@ const Signup = () => {
         },
       };
 
-      const { data } = await axios.post(
+      const { data } = await axiosInstance.post(
         "/api/v1/auth/signup",
         {
           fullname: fullname,

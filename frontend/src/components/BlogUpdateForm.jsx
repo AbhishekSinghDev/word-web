@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "../axiosInstance.js";
 
 import { UserContext } from "../context/UserContextProvider";
 import { Toaster, toast } from "react-hot-toast";
@@ -25,7 +25,7 @@ const BlogUpdateForm = ({ oldBlog, blogId }) => {
 
   const handleBlogUpdate = async () => {
     try {
-      const { data } = await axios.put(
+      const { data } = await axiosInstance.put(
         `/api/v1/blog/${blogId}`,
         {
           title: newTitle,

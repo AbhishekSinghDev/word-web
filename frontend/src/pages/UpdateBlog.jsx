@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosInstance from "../axiosInstance.js";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -12,7 +12,7 @@ const UpdateBlog = () => {
   useEffect(() => {
     const fetchBlogDetails = async () => {
       try {
-        const { data } = await axios.get(`/api/v1/blog/${blogid}`);
+        const { data } = await axiosInstance.get(`/api/v1/blog/${blogid}`);
         setOldBlog(data.blog);
       } catch (err) {
         toast.error(err.message);

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import axios from "axios";
+import axiosInstance from "../axiosInstance.js";
 import moment from "moment";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -13,7 +13,7 @@ const Blog = () => {
   useEffect(() => {
     const fetchBlogDetails = async () => {
       try {
-        const { data } = await axios.get(`/api/v1/blog/${blogid}`);
+        const { data } = await axiosInstance.get(`/api/v1/blog/${blogid}`);
         setAuthor(data.blog.author);
         setBlog(data.blog);
       } catch (err) {
