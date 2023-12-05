@@ -11,9 +11,7 @@ const PORT = process.env.PORT;
 const app = express();
 
 const corsOptions = {
-  AccessControlAllowOrigin: "*",
   origin: "https://word-web-sigma.vercel.app/",
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
 };
 
 app.use(cors(corsOptions));
