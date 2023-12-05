@@ -11,7 +11,7 @@ const verifyToken = async (req, res, next) => {
   const tokenValue = token.split(" ")[1];
 
   try {
-    const user = jwt.verify(tokenValue, "siyan_op");
+    const user = jwt.verify(tokenValue, process.env.JWT_TOKEN);
     req.userid = user.id;
     next();
   } catch (err) {
