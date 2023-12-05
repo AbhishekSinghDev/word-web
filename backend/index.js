@@ -11,7 +11,7 @@ const PORT = process.env.PORT;
 const app = express();
 
 const corsOptions = {
-  origin: "https://word-web-sigma.vercel.app/",
+  origin: "https://word-web-sigma.vercel.app",
 };
 
 app.use(cors(corsOptions));
