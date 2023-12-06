@@ -55,7 +55,7 @@ const UserProfile = () => {
     if (user) {
       fetchLoggedInUserDetails();
     }
-  }, [isLoggedUserFollows]);
+  }, [userid, user, isLoggedUserFollows]);
 
   useEffect(() => {
     // check weither user follows the user or not
@@ -72,7 +72,7 @@ const UserProfile = () => {
     };
 
     isFollows();
-  }, [userFollowers]);
+  }, [userFollowers, loggedUser._id]);
 
   const handleFollow = async () => {
     const token = user;

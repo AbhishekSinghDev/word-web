@@ -77,6 +77,17 @@ const followUser = async (req, res) => {
 
   try {
     // fetch details of person to be followed
+    const userDetails = await User.findById(user_id);
+    const followersArray = userDetails.followers;
+    const isAlreadyFollows = followersArray.find((id) => id == currUser_id);
+
+    if (isAlreadyFollows) {
+      return res.status(400).json({
+        success: false,
+        message: "You already follow this user",
+      });
+    }
+
     const userToFollow = await User.findByIdAndUpdate(
       user_id,
       {
