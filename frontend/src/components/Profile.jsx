@@ -15,7 +15,7 @@ const Profile = () => {
   const [userAvatar, setUserAvatar] = useState(avatar1);
   useEffect(() => {
     const randomAvatar = Math.floor(Math.random() * 11);
-    setUserAvatar(`../../src/assets/images/avatars/${randomAvatar}.png`);
+    setUserAvatar(`../assets/images/avatars/${randomAvatar}.png`);
   }, [userAvatar]);
 
   useEffect(() => {
